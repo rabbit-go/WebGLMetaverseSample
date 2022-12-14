@@ -41,9 +41,13 @@ FodyWeavers.xsd
 /Library
 /Temp
 /UserSettings
-/Web
 /.vsconfig
 /Assets/unity-chan!
 /Assets/unity-chan!.meta
 /Assets/Avatar
 /Win
+.DS_Store
+.idea/.idea.WebGLMetaverseSample/.idea/.gitignore
+.idea/.idea.WebGLMetaverseSample/.idea/encodings.xml
+.idea/.idea.WebGLMetaverseSample/.idea/indexLayout.xml
+.idea/.idea.WebGLMetaverseSample/.idea/vcs.xml
