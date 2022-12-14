@@ -71,7 +71,7 @@ var LibrarySoraWebRTC = {
         });
         connection.on("message", (message) => {
             let dataArray = new Uint8Array(message.data);
-            Module['JavaScriptArrayCopy'].JavaScriptSharedArrayCopy(dataArray);
+            JavaScriptSharedArrayCopy(dataArray);
             if (isHost) {
                 unityInstance.SendMessage("NetworkManager", "ServerDataReceived", dataArray.length);
             }
