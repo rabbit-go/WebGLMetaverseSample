@@ -1,0 +1,42 @@
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+
+// This sets up the scene camera for the local player
+
+namespace Mirror.Examples.AdditiveLevels
+{
+    public class PlayerCamera : NetworkBehaviour
+    {
+        [SerializeField]Camera mainCam;
+
+        void Start()
+        {
+            mainCam.gameObject.SetActive(isLocalPlayer);
+            //mainCam = Camera.main;
+        }
+
+        public override void OnStartLocalPlayer()
+        {
+            if (mainCam != null)
+            {
+                // configure and make camera a child of player with 3rd person offset
+                mainCam.orthographic = false;
+                mainCam.transform.SetParent(transform);
+                mainCam.transform.localPosition = new Vector3(0f, 3f, -8f);
+                mainCam.transform.localEulerAngles = new Vector3(10f, 0f, 0f);
+            }
+        }
+
+        public override void OnStopLocalPlayer()
+        {
+            if (mainCam != null)
+            {
+                mainCam.transform.SetParent(null);
+                SceneManager.MoveGameObjectToScene(mainCam.gameObject, SceneManager.GetActiveScene());
+                mainCam.orthographic = true;
+                mainCam.transform.localPosition = new Vector3(0f, 30f, 0f);
+                mainCam.transform.localEulerAngles = new Vector3(90f, 0f, 0f);
+            }
+        }
+    }
+}
