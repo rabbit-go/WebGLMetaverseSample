@@ -5,29 +5,33 @@ using UnityEngine.UI;
 
 public class RoomConnection : MonoBehaviour
 {
-    public Button[] Rooms;
+    [SerializeField] Button enterRoomButton;
+    [SerializeField] InputField roomNameInput;
     private string roomName;
 
-    public string RoomName { get => roomName; private set => roomName = value; }
+    public string NowRoomName
+    {
+        get => roomName;
+        private set => roomName = value;
+    }
+
     [DllImport("__Internal")]
     public static extern void EnterRoom(string roomID);
+
     // Start is called before the first frame update
     void Start()
     {
-        foreach (var room in Rooms)
+        enterRoomButton.onClick.AddListener(() =>
         {
-            room.onClick.AddListener(() =>
-            {
-                RoomName = room.name;
-                EnterRoom(RoomName);
-            });
-        }
+            roomName = roomNameInput.text;
+            if (roomName == "") return;
+            EnterRoom(roomName);
+        });
     }
+
     private void Update()
     {
-        foreach (var room in Rooms)
-        {
-            room.gameObject.SetActive(!NetworkManager.singleton.isNetworkActive);
-        }
+        enterRoomButton.gameObject.SetActive(!NetworkManager.singleton.isNetworkActive);
+        roomNameInput.gameObject.SetActive(!NetworkManager.singleton.isNetworkActive);
     }
 }
